@@ -28,8 +28,9 @@
 
                 if (playerChoice === computerSelection)
                 {
-                    result = "Tie!" + playerChoice + " ties with " + computerSelection;
-                    return result;
+                    result = "Tie! " + playerChoice + " ties with " + computerSelection;
+                    console.log(result);
+                    return 2 //2 indicates tie
                 }
                 else if (playerChoice === "Rock")
                 {
@@ -54,9 +55,46 @@
 
                 if (lose)
                 {
-                    return ("You Lose! " + computerSelection + " beats " + playerChoice);
+                    console.log("You Lose! " + computerSelection + " beats " + playerChoice);
+                    return 1; // 1 means computer win
                 }
-                return ("You Win! " + playerChoice + " beats " + computerSelection);
+                console.log("You Win! " + playerChoice + " beats " + computerSelection);
+                return 0; // 0 means player win
+            }
+
+            function game()
+            {
+                let playerScore = 0;
+                let computerScore = 0;
+
+                for (let i =0; i <  5; i++)
+                {
+                    let playerInput = prompt("Please enter: Rock, Paper, or Scissors");
+                    let computerInput = computerPlay();
+
+                    let outcome = playRound(playerInput,computerInput);
+                    if (outcome === 0)
+                    {
+                        playerScore++;
+                    }
+                    else if (outcome === 1)
+                    {
+                        computerScore++;
+                    }
+                }
+
+                if (playerScore > computerScore)
+                {
+                    return ("Player Wins!");
+                }
+                else if (playerScore < computerScore)
+                {
+                    return ("Computer Wins!");
+                }
+                else {
+                    return ("Tie!");
+                }
+
             }
         </script>
     </body>
