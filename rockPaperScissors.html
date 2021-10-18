@@ -18,7 +18,45 @@
 
             function playRound(playerSelection, computerSelection)
             {
+                let lose = true;
+                let result;
+                let playerChoice = playerSelection.toLowerCase();
+                let playerFirstLetter = playerChoice.substring(0,1);
+                playerFirstLetter = playerFirstLetter.toUpperCase();
+                let temp = playerChoice.slice(1);
+                playerChoice = playerFirstLetter + temp;
 
+                if (playerChoice === computerSelection)
+                {
+                    result = "Tie!" + playerChoice + " ties with " + computerSelection;
+                    return result;
+                }
+                else if (playerChoice === "Rock")
+                {
+                    if (computerSelection === "Scissors")
+                    {
+                        lose = false;
+                    }
+                }
+                else if (playerChoice === "Paper")
+                {
+                    if (computerSelection === "Rock")
+                    {
+                        lose = false;
+                    }
+                }
+                else {  //playerChoice is Scissors
+                    if (computerSelection === "Paper")
+                    {
+                        lose = false;
+                    }
+                }
+
+                if (lose)
+                {
+                    return ("You Lose! " + computerSelection + " beats " + playerChoice);
+                }
+                return ("You Win! " + playerChoice + " beats " + computerSelection);
             }
         </script>
     </body>
