@@ -6,8 +6,29 @@
         <link rel="Javascript" href="rpsJS.js">
     </head>
     <body>
+        <button id="rock" class="rpsSelection">Rock</button>
+        <button id="paper" class="rpsSelection">Paper</button>
+        <button id="scissors" class="rpsSelection">Scissors</button>
+
+        <div id="container"></div>
+
         <script>
             const choices = ["Rock", "Paper", "Scissors"];
+            let playerScore = 0;
+            let computerScore = 0;
+            let victor;
+            const container = document.querySelector('#container');
+            let score = document.createElement('h2');
+            score.classList.add('h2');
+            score.textContent = "Player Score: " + playerScore + " vs. Computer Score: " + computerScore;
+            container.appendChild(score);
+
+            let outcome =  document.createElement('p');
+            outcome.classList.add('p');
+
+            let winner = document.createElement('h3');
+            winner.classList.add('h3');
+
             function computerPlay()
             {
                 let computerChoice;
@@ -18,6 +39,8 @@
 
             function playRound(playerSelection, computerSelection)
             {
+                playerSelection = this.id;
+                computerSelection = computerPlay();
                 let lose = true;
                 let result;
                 let playerChoice = playerSelection.toLowerCase();
@@ -28,8 +51,10 @@
 
                 if (playerChoice === computerSelection)
                 {
-                    result = "Tie! " + playerChoice + " ties with " + computerSelection;
-                    console.log(result);
+                    //result = "Tie! " + playerChoice + " ties with " + computerSelection;
+                    //console.log(result);
+                    outcome.textContent = "Tie! " + playerChoice + " ties with " + computerSelection;
+                    container.appendChild(outcome);
                     return 2 //2 indicates tie
                 }
                 else if (playerChoice === "Rock")
@@ -55,11 +80,51 @@
 
                 if (lose)
                 {
-                    console.log("You Lose! " + computerSelection + " beats " + playerChoice);
+                    computerScore++;
+                    outcome.textContent = "You Lose! " + computerSelection + " beats " + playerChoice + "\n";
+                    container.appendChild(outcome);
+                    score.textContent = "Player Score: " + playerScore + " vs. Computer Score: " + computerScore;
+                    if (playerScore === 5 || computerScore === 5)
+                    {
+                        if (playerScore === 5)
+                        {
+                            victor = "Player";
+                        }
+                        else {
+                            victor = "Computer";
+                        }
+                        winner.textContent = victor + " Wins!";
+                        container.appendChild(winner);
+                        clear();
+                    }
+                    //console.log("You Lose! " + computerSelection + " beats " + playerChoice);
                     return 1; // 1 means computer win
                 }
-                console.log("You Win! " + playerChoice + " beats " + computerSelection);
+                playerScore++;
+                outcome.textContent = "You Win! " + playerChoice + " beats " + computerSelection;
+                container.appendChild(outcome);
+                score.textContent = "Player Score: " + playerScore + " vs. Computer Score: " + computerScore;
+                if (playerScore === 5 || computerScore === 5)
+                {
+                    if (playerScore === 5)
+                    {
+                        victor = "Player";
+                    }
+                    else {
+                        victor = "Computer";
+                    }
+                    winner.textContent = victor + " Wins!";
+                    container.appendChild(winner);
+                    clear();
+                }
+                //console.log("You Win! " + playerChoice + " beats " + computerSelection);
                 return 0; // 0 means player win
+            }
+
+            function clear()
+            {
+                playerScore = 0;
+                computerScore = 0;
             }
 
             function game()
@@ -67,6 +132,7 @@
                 let playerScore = 0;
                 let computerScore = 0;
 
+                /*
                 for (let i =0; i <  5; i++)
                 {
                     let playerInput = prompt("Please enter: Rock, Paper, or Scissors");
@@ -81,7 +147,7 @@
                     {
                         computerScore++;
                     }
-                }
+                }*/
 
                 if (playerScore > computerScore)
                 {
@@ -96,6 +162,10 @@
                 }
 
             }
+
+            const buttons = document.querySelectorAll(".rpsSelection");
+            buttons.forEach(rpsSelection => rpsSelection.addEventListener("click", playRound));
+
         </script>
     </body>
 </html>
